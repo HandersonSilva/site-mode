@@ -1,0 +1,16 @@
+# Template PHP Build
+
+# This template allows you to validate your PHP application.
+# The workflow allows running tests and code linting on the default branch.
+
+image: handersonsilva/pipeline-php:1.0
+
+pipelines:        
+  branches:            
+    master:          
+      - step:
+          script:
+            - ssh ubuntu@$HOST ls -l /home/ubuntu/switch
+            - dep deploy -vvv production
+
+      
