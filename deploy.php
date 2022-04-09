@@ -2,11 +2,10 @@
 /** create a file the deploy */
 namespace Deployer;
 
-//require 'recipe/laravel.php';
 require 'recipe/common.php';
 
 $imageName = 'landpage';
-$version = '1.0.2';
+$version = '1.0.3';
 $port = '8080';
 $replicas = 1;
 
@@ -14,7 +13,7 @@ inventory('deployment/hosts.yml');
 
 set('application', 'SITE');
 
-set('repository', 'git@bitbucket.org:teamsisp/site-mode.git');
+set('repository', 'git@github.com:HandersonSilva/site-mode.git');
 set('keep_releases', 2);
 
 task('docker-build', function () use ($imageName, $version) {
@@ -60,7 +59,3 @@ task('deploy',[
 ])->desc('Deploy project');
 
 after('deploy:failed', 'deploy:unlock');
-
-
-
-
