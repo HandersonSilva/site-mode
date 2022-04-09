@@ -17,8 +17,8 @@ jobs:
   deploy:
     name: Deploy to prod
     runs-on: ubuntu-latest
-    container:
-      image: docker://handersonsilva/pipeline-php:1.0
+#    container:
+#      image: docker://handersonsilva/pipeline-php:1.0
     steps:
       - uses: actions/checkout@v1
       - name: Setup PHP
@@ -34,6 +34,8 @@ jobs:
         run: ssh-keyscan -H ${{ secrets.TARGET_HOST }} >> ~/.ssh/known_hosts
       - name: Test SSH connection
         run: ssh ubuntu@${{ secrets.TARGET_HOST }} ls -l /home/ubuntu/switch
+     - name: Set Up Deployer
+       run: curl -LO https://deployer.org/deployer.phar && mv deployer.phar bin/dep && sudo chmod +x bin/dep
       - name: Deploy Laravel
         run: dep deploy -vvv production
 #        uses: deployphp/action@v1
