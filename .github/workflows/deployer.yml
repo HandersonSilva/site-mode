@@ -32,8 +32,8 @@ jobs:
           known_hosts: 'known_hosts'
       - name: Adding Known Hosts
         run: ssh-keyscan -H ${{ secrets.TARGET_HOST }} >> ~/.ssh/known_hosts
-      - name: Adding Known Hosts
-        run: ls
+      - name: Adding host in deploy
+        run: ${{ secrets.TARGET_HOST }} >> deployment/hosts.yml
       - name: Test SSH connection
         run: ssh ubuntu@${{ secrets.TARGET_HOST }} ls -l /home/ubuntu/switch
       - name: Set Up Deployer
