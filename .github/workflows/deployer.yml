@@ -52,9 +52,11 @@ jobs:
 #          END
       #      - name: Set Up Deployer
       #        run: curl -LO https://deployer.org/deployer.phar && mv deployer.phar bin/dep && sudo chmod +x bin/dep
-      - name: Deploy Laravel
+      - name: Test SSH connection
         run: ssh ubuntu@${{ secrets.TARGET_HOST }} ls -l /home/ubuntu/switch
-        uses: deployphp/action@v1
-        with:
-          private-key: ${{ secrets.PRIVATE_KEY }}
-          dep: deploy
+      - name: Deploy Laravel
+        run: dep deploy -vvv production
+#        uses: deployphp/action@v1
+#        with:
+#          private-key: ${{ secrets.PRIVATE_KEY }}
+#          dep: deploy
