@@ -35,7 +35,7 @@ jobs:
       - name: Test SSH connection
         run: ssh ubuntu@${{ secrets.TARGET_HOST }} ls -l /home/ubuntu/switch
       - name: Set Up Deployer
-        run: curl -LO https://deployer.org/deployer.phar && mv deployer.phar bin/dep && sudo chmod +x bin/dep
+        run: curl -LO https://deployer.org/deployer.phar && mv deployer.phar /usr/local/bin/dep && sudo chmod +x /usr/local/bin/dep
       - name: Deploy Laravel
         run: dep deploy -vvv production
 #        uses: deployphp/action@v1
