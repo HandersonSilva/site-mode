@@ -49,18 +49,17 @@ task('test-ssh', function () {
 
 task('deploy',[
     'deploy:info',
-    'test-ssh',
-//    'deploy:prepare',
-//    'deploy:release',
-//    'deploy:update_code',
-//    'docker-build',
-//    'docker-push',
-//    'docker-clear-image',
-//    'remove-service',
-//    'create-service',
-//    'deploy:shared',
-//    'deploy:writable',
-//    'deploy:symlink',
+    'deploy:prepare',
+    'deploy:release',
+    'deploy:update_code',
+    'docker-build',
+    'docker-push',
+    'docker-clear-image',
+    'remove-service',
+    'create-service',
+    'deploy:shared',
+    'deploy:writable',
+    'deploy:symlink',
     'cleanup'    
 ])->desc('Deploy project');
 
