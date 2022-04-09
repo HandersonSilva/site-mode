@@ -42,21 +42,25 @@ task('remove-service', function () use ($imageName) {
  task('create-service', function () use ($imageName, $version, $port, $replicas) {
     run("docker service create --name {$imageName} --replicas {$replicas} -dt -p {$port}:80 handersonsilva/switch-{$imageName}:{$version}");
   })->desc('Create service');
- 
+
+task('test-ssh', function () {
+  run('ls -a');
+})->desc('List files');
 
 task('deploy',[
     'deploy:info',
-    'deploy:prepare',
-    'deploy:release',
-    'deploy:update_code',
-    'docker-build',
-    'docker-push',
-    'docker-clear-image',
-    'remove-service',
-    'create-service',
-    'deploy:shared',
-    'deploy:writable',
-    'deploy:symlink',
+    'test-ssh',
+//    'deploy:prepare',
+//    'deploy:release',
+//    'deploy:update_code',
+//    'docker-build',
+//    'docker-push',
+//    'docker-clear-image',
+//    'remove-service',
+//    'create-service',
+//    'deploy:shared',
+//    'deploy:writable',
+//    'deploy:symlink',
     'cleanup'    
 ])->desc('Deploy project');
 
