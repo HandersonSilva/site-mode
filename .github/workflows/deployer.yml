@@ -43,7 +43,7 @@ jobs:
       #      - name: Set Up Deployer
       #        run: curl -LO https://deployer.org/deployer.phar && mv deployer.phar bin/dep && sudo chmod +x bin/dep
       - name: Deploy Laravel
-        uses: deployphp/action@master
+#        uses: deployphp/action@master
         with:
           private-key: ${{ secrets.PRIVATE_KEY }}
           known-hosts: ${{ secrets.KNOWN_HOSTS }}
