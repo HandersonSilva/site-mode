@@ -11,6 +11,8 @@ $replicas = 1;
 
 inventory('deployment/hosts.yml');
 
+set('default_stage', 'production');
+
 set('application', 'SITE');
 
 set('repository', 'git@github.com:HandersonSilva/site-mode.git');
