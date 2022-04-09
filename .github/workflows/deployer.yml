@@ -54,8 +54,7 @@ jobs:
       #        run: curl -LO https://deployer.org/deployer.phar && mv deployer.phar bin/dep && sudo chmod +x bin/dep
       - name: Deploy Laravel
         run: ssh ubuntu@${{ secrets.TARGET_HOST }} ls -l /home/ubuntu/switch
-#        uses: deployphp/action@v1
-#        with:
-#          private-key: ${{ secrets.PRIVATE_KEY }}
-#          known-hosts: ${{ secrets.KNOWN_HOSTS }}
-#          dep: deploy
+        uses: deployphp/action@v1
+        with:
+          private-key: ${{ secrets.PRIVATE_KEY }}
+          dep: deploy
