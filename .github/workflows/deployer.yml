@@ -17,14 +17,14 @@ jobs:
   deploy:
     name: Deploy to prod
     runs-on: ubuntu-latest
-    container:
-      image: docker://handersonsilva/pipeline-php:1.0
+#    container:
+#      image: docker://handersonsilva/pipeline-php:1.0
     steps:
       - uses: actions/checkout@v1
-#      - name: Setup PHP
-#        uses: shivammathur/setup-php@master
-#        with:
-#          php-version: 8.0
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
       - name: Configure SSH
         env:
           SSH_KEY: ${{ secrets.PRIVATE_KEY }}
