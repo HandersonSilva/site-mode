@@ -1,0 +1,48 @@
+# Place your Github Actions workflow configurations in project_dir/.github/workflows/
+#
+# This configuration requires the following 4 repository secret variables:
+# PRIVATE_KEY (which will contain the content of the private key for your repository. Either reuse the one from earlier, or better, make a new one.)
+# KNOWN_HOSTS (contains a hash identifying the remote server as the genuine one. You will have the hash for the server in your local .ssh directory in the file known_hosts if you have connected to it before.)
+# TARGET_HOST (the url for server when connecting with SSH. On one.com it has the form ssh.example.com)
+# TARGET_USER (the SSH user for connecting to a remote server. On one.com the domain-name serves as the username, so it has the form of example.com).
+#
+# You are also required to update host_name for the SSH configuration on line 35 to match up with the host specified in your Deployer recipe.
+
+name: Deploy laravel
+on: [workflow_dispatch, push]
+jobs:
+  deploy:
+    name: Deploy to prod
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setup PHP
+        uses: shivammathur/setup-php@master
+        with:
+          php-version: 8.0
+      - name: Configure SSH
+        env:
+          SSH_KEY: ${{ secrets.PRIVATE_KEY }}
+          KNOWN_HOSTS: ${{ secrets.KNOWN_HOSTS }}
+          SSH_HOST: ${{ secrets.TARGET_HOST }}
+          SSH_USER: ${{ secrets.TARGET_USER }}
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          echo "$SSH_KEY" > ~/.ssh/staging.key
+          chmod 600 ~/.ssh/staging.key
+          cat >>~/.ssh/config <<END
+            Host host_name
+              HostName $SSH_HOST
+              User $SSH_USER
+              IdentityFile ~/.ssh/staging.key
+              StrictHostKeyChecking no
+          END
+      - name: Set Up Deployer
+        run: curl -LO https://deployer.org/deployer.phar && mv deployer.phar bin/dep && sudo chmod +x bin/dep
+      - name: Deploy Laravel
+        uses: deployphp/action@master
+        with:
+          private-key: ${{ secrets.PRIVATE_KEY }}
+          known-hosts: ${{ secrets.KNOWN_HOSTS }}
+          dep: deploy
