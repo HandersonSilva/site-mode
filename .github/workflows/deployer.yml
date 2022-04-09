@@ -9,7 +9,7 @@
 # You are also required to update host_name for the SSH configuration on line 35 to match up with the host specified in your Deployer recipe.
 
 name: Deploy laravel
-on: [workflow_dispatch, push]
+on: [ workflow_dispatch, push ]
 jobs:
   deploy:
     name: Deploy to prod
@@ -38,8 +38,10 @@ jobs:
               IdentityFile ~/.ssh/staging.key
               StrictHostKeyChecking no
           END
-      - name: Set Up Deployer
-        run: curl -LO https://deployer.org/deployer.phar && mv deployer.phar bin/dep && sudo chmod +x bin/dep
+      #      - name: Set Up Deployer
+      #        run: curl -LO https://deployer.org/deployer.phar && mv deployer.phar bin/dep && sudo chmod +x bin/dep
+      - name: Deploy
+          uses: deployphp/action@v1
       - name: Deploy Laravel
         uses: deployphp/action@master
         with:
