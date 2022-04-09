@@ -44,7 +44,7 @@ task('remove-service', function () use ($imageName) {
   })->desc('Create service');
 
 task('test-ssh', function () {
-  run('ls -a');
+  run('touch teste-action.txt');
 })->desc('List files');
 
 task('deploy',[
