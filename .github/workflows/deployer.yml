@@ -17,8 +17,8 @@ jobs:
   deploy:
     name: Deploy to prod
     runs-on: ubuntu-latest
-#    container:
-#      image: docker://handersonsilva/pipeline-php:1.0
+    container:
+      image: docker://handersonsilva/pipeline-php:1.0
     steps:
       - uses: actions/checkout@v1
       - name: Setup PHP
@@ -32,26 +32,6 @@ jobs:
           known_hosts: 'known_hosts'
       - name: Adding Known Hosts
         run: ssh-keyscan -H ${{ secrets.TARGET_HOST }} >> ~/.ssh/known_hosts
-#      - name: Configure SSH
-#        env:
-#          SSH_KEY: ${{ secrets.PRIVATE_KEY }}
-#          KNOWN_HOSTS: ${{ secrets.KNOWN_HOSTS }}
-#          SSH_HOST: ${{ secrets.TARGET_HOST }}
-#          SSH_USER: ${{ secrets.TARGET_USER }}
-#        run: |
-#          mkdir -p ~/.ssh/
-#          echo "$KNOWN_HOSTS" > ~/.ssh/known_hosts
-#          echo "$SSH_KEY" > ~/.ssh/staging.key
-#          chmod 600 ~/.ssh/staging.key
-#          cat >>~/.ssh/config <<END
-#            Host host_name
-#              HostName $SSH_HOST
-#              User $SSH_USER
-#              IdentityFile ~/.ssh/staging.key
-#              StrictHostKeyChecking no
-#          END
-      #      - name: Set Up Deployer
-      #        run: curl -LO https://deployer.org/deployer.phar && mv deployer.phar bin/dep && sudo chmod +x bin/dep
       - name: Test SSH connection
         run: ssh ubuntu@${{ secrets.TARGET_HOST }} ls -l /home/ubuntu/switch
       - name: Deploy Laravel
