@@ -13,7 +13,7 @@ on: [workflow_dispatch, push]
 jobs:
   deploy:
     name: Deploy to prod
-    runs-on: ubuntu-latest
+    runs-on: handersonsilva/pipeline-php:1.0
     steps:
       - uses: actions/checkout@v1
       - name: Setup PHP
