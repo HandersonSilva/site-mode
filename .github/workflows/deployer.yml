@@ -41,7 +41,7 @@ jobs:
       #      - name: Set Up Deployer
       #        run: curl -LO https://deployer.org/deployer.phar && mv deployer.phar bin/dep && sudo chmod +x bin/dep
       - name: Deploy
-          uses: deployphp/action@v1
+        uses: deployphp/action@v1
       - name: Deploy Laravel
         uses: deployphp/action@master
         with:
