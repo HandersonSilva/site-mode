@@ -6,7 +6,7 @@ require 'recipe/common.php';
 
 $imageName = 'landpage';
 $version = '1.0.3';
-$port = '8080';
+$port = '80';
 $replicas = 1;
 
 inventory('deployment/hosts.yml');
