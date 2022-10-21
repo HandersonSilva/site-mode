@@ -15,7 +15,7 @@ concurrency: production_environment
 
 jobs:
   deploy:
-    name: Deploy to prod
+    name: Deploy to production
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -34,9 +34,7 @@ jobs:
         run: echo -e '\n  hostname:' ${{ secrets.TARGET_HOST }}'\n  stage:' ${{ secrets.DEPLOYER_STAGE }} '\n  deploy_path:' ${{ secrets.DEPLOYER_PATH }}'\n  user:' ${{ secrets.TARGET_USER }} >> deployment/hosts.yml
       - name: Adding host in deploy
         run: cat deployment/hosts.yml
-      - name: Test SSH connection
-        run: ssh ubuntu@${{ secrets.TARGET_HOST }} ls -l /home/ubuntu/switch
       - name: Set Up Deployer
         run: curl -LO https://deployer.org/deployer.phar && mv deployer.phar /usr/local/bin/dep && sudo chmod +x /usr/local/bin/dep
-      - name: Deploy with Deployer
+      - name: Run Deployer
         run: dep deploy -vvv production
