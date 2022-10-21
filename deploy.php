@@ -25,10 +25,6 @@ set('keep_releases', NUMBER_RELEASE);
 set('default_stage', AMBIENTE);
 set('default_timeout', 1200);
 
-task('copy-config', function () {
-	run('cp -f /home/ubuntu/environment/env.feirinha {{release_path}}/.env');
-})->desc('Copy config files');
-
 task('docker-build', function () {
 	run('cd {{release_path}} && docker build -t handersonsilva/switch-' . IMAGE_NAME . ':' . VERSION . ' -f ' . AMBIENTE . '.dockerfile .');
 })->desc('Build image');
