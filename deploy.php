@@ -51,7 +51,6 @@ task('deploy', [
 	'deploy:prepare',
 	'deploy:release',
 	'deploy:update_code',
-	'copy-config',
 	'docker-build',
 	'docker-push',
 	'remove-service',
